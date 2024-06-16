@@ -1,0 +1,33 @@
+.drawer-header {
+  background-color: #4c4aba;
+  color: #fff;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.drawer-heading {
+  font-size: 20px;
+}
+
+.drawer__nav {
+  padding: 16px;
+}
+
+.drawer__nav-list {
+  list-style: none;
+}
+
+.drawer__nav-list li a {
+  display: inline-block;
+  color: #212529;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.drawer__nav-list li:not(:first-of-type) a {
+  margin-top: 16px;
+}
