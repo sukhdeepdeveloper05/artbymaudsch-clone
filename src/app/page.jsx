@@ -89,6 +89,7 @@ export default function Home() {
           <video
             ref={video}
             onClick={playPause}
+            preload="none"
             src="https://cdn.shopify.com/s/files/1/0379/6680/7179/files/3030133295_70462492-2afe-477f-ac17-ab01db322571.mp4?v=1641969847"
             poster="//artbymaudsch.com/cdn/shop/files/1273509938-1292c2695aa0a50859735ccc72297bb79e7db4d0b6e107f5d.jpg?v=1641963686"
           ></video>
