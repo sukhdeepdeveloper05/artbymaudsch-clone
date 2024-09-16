@@ -3,31 +3,25 @@
 import Link from "next/link";
 import { Poppins } from "next/font/google";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import classes from "./page.module.css";
 import ProductSlider from "@/components/slider/ProductSlider";
 import { motion, AnimatePresence } from "framer-motion";
 import CollectionsSection from "@/components/CollectionsSection/CollectionsSection";
-import { useQuery } from "@tanstack/react-query";
+import getProducts from "@/util/getProducts";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "700" });
 
-async function fetchProducts(activeTab) {
-  const response = await fetch(`/api/collections/${activeTab}`);
-
-  const resData = await response.json();
-  return resData;
-}
-
 export default function Home() {
   const [activeTab, setActiveTab] = useState("bright-colors");
+  const [products, setProducts] = useState([]);
   const video = useRef();
 
-  const { data: products, isLoading } = useQuery({
-    queryKey: [activeTab],
-    queryFn: () => fetchProducts(activeTab),
-    staleTime: 24 * 60 * 60 * 1000,
-  });
+  useEffect(() => {
+    (async () => {
+      setProducts(await getProducts(activeTab));
+    })();
+  }, []);
 
   function toggleActiveTab(value) {
     setActiveTab(value);
@@ -191,13 +185,13 @@ export default function Home() {
         <AnimatePresence mode="wait">
           <motion.div layout>
             <AnimatePresence mode="wait">
-              {!isLoading && activeTab === "bright-colors" && (
+              {activeTab === "bright-colors" && (
                 <ProductSlider
                   products={products.slice(0, 15)}
                   key="colorful"
                 />
               )}
-              {!isLoading && activeTab === "trending" && (
+              {activeTab === "trending" && (
                 <ProductSlider
                   products={products.slice(0, 15)}
                   key="trending"

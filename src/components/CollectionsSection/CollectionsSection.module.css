@@ -20,6 +20,12 @@
   background-position: center center;
   background-size: 100%;
   position: relative;
+  transition: all 0.3s ease;
+}
+
+.collection-item:hover {
+  opacity: 1;
+  background-size: 120%;
 }
 
 .collection-item::after {

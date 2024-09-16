@@ -1,24 +1,20 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import classes from "./CollectionsSection.module.css";
-import { useQuery } from "@tanstack/react-query";
+import getCollections from "@/util/getCollections";
 
-async function fetchCollections() {
-  const response = await fetch(`/api/collections`);
+export default function CollectionsSection({ preFetchedCollections }) {
+  const [collections, setCollections] = useState(preFetchedCollections || []);
 
-  const resData = await response.json();
-  return resData;
-}
-
-export default function CollectionsSection() {
-  const { data: collections, isLoading } = useQuery({
-    queryKey: ["collections"],
-    queryFn: () => fetchCollections(),
-    staleTime: 24 * 60 * 60 * 1000,
-  });
+  useEffect(() => {
+    if (!preFetchedCollections) {
+      (async () => {
+        setCollections(await getCollections());
+      })();
+    }
+  }, []);
 
   return (
     <section
@@ -28,29 +24,27 @@ export default function CollectionsSection() {
         <h3 className="section-SubHeading fs-18">Collections</h3>
       </header>
       <div className={classes["collections-list__wrapper"]}>
-        {!isLoading &&
-          collections.map((collection) => {
-            return (
-              <motion.div
-                className={classes["collection-item"]}
-                style={{ backgroundImage: `url(${collection.image})` }}
-                key={collection.id}
-                whileHover={{ backgroundSize: "120%" }}
-              >
-                <div className={classes["collection-item__content"]}>
-                  <h2 className={classes["collection-item__title"]}>
-                    {collection.title}
-                  </h2>
-                  <Link
-                    href={`/collections/${collection.handle}`}
-                    className={classes["collection-item__button"]}
-                  >
-                    See Artworks
-                  </Link>
-                </div>
-              </motion.div>
-            );
-          })}
+        {collections.map((collection) => {
+          return (
+            <div
+              className={classes["collection-item"]}
+              style={{ backgroundImage: `url(${collection.image})` }}
+              key={collection.id}
+            >
+              <div className={classes["collection-item__content"]}>
+                <h2 className={classes["collection-item__title"]}>
+                  {collection.title}
+                </h2>
+                <Link
+                  href={`/collections/${collection.handle}`}
+                  className={classes["collection-item__button"]}
+                >
+                  See Artworks
+                </Link>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
