@@ -6,10 +6,9 @@ import Products from "@/components/Products/Products";
 const poppins = Poppins({ subsets: ["latin"], weight: "700" });
 
 export default async function CollectionPage({ params }) {
+  const { collectionSlug } = await params;
   const collection = {
-    ...collections.find(
-      (collection) => collection.handle === params.collectionSlug
-    ),
+    ...collections.find((collection) => collection.handle === collectionSlug),
   };
 
   const products = await getProducts(collection.handle);

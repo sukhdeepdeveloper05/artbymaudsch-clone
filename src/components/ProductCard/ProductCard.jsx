@@ -12,7 +12,7 @@ export default function ProductCard({ product }) {
     >
       <figure className={classes["product-item-image__wrapper"]}>
         <Image
-          src={product.image.src}
+          src={product.images[0].src}
           fill
           sizes="300px"
           alt={product.title}

@@ -23,13 +23,22 @@ export default function Header() {
 
   const totalCartQuantity = cartItems.reduce(
     (currentQuantity, item) => item.quantity + currentQuantity,
-    0
+    0,
   );
 
   return (
     <div className={`${classes["header-wrapper"]} site-main-header-wrapper`}>
       <div className={classes["announcement-bar"] + " " + "text-center"}>
-        <b>Free shipping</b> on all orders!
+        All products are original artworks created by{" "}
+        <a
+          href="https://artbymaudsch.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={classes["announcement-link"]}
+        >
+          artbymaudsch.com
+        </a>
+        . This is a clone website created for learning purposes only.
       </div>
       <div className={classes["site-header-container"]}>
         <header className={classes["site-header"]}>
@@ -39,7 +48,7 @@ export default function Header() {
           >
             <HamburgerIcon />
           </button>
-          
+
           <AnimatePresence>
             {isMenuOpen && <HeaderDrawer setIsMenuOpen={setIsMenuOpen} />}
           </AnimatePresence>
@@ -59,8 +68,10 @@ export default function Header() {
                   {pathname === "/collections/new-pieces" && <TabIndicator />}
                 </li>
                 <li>
-                  <Link href="/collections/bestsellers">Best Sellers</Link>
-                  {pathname === "/collections/bestsellers" && <TabIndicator />}
+                  <Link href="/collections/bestsellers-1">Best Sellers</Link>
+                  {pathname === "/collections/bestsellers-1" && (
+                    <TabIndicator />
+                  )}
                 </li>
                 <li>
                   <Link href="/collections">Collections</Link>

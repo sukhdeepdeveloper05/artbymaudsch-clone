@@ -10,8 +10,11 @@ import Product from "@/components/Product/Product";
 const poppins = Poppins({ subsets: ["latin"], weight: "700" });
 
 export default async function ProductPage({ params }) {
-  const product = await getProduct(params.productSlug);
-  const recommandedProducts = await getRecommandedProducts(params.productSlug);
+  const { productSlug } = await params;
+  const product = await getProduct(productSlug);
+  const recommandedProducts = await getRecommandedProducts(productSlug);
+
+  console.log(productSlug, product);
 
   return (
     <main>

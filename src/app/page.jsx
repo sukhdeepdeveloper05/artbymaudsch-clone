@@ -13,7 +13,7 @@ import getProducts from "@/util/getProducts";
 const poppins = Poppins({ subsets: ["latin"], weight: "700" });
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState("bright-colors");
+  const [activeTab, setActiveTab] = useState("bright-colours");
   const [products, setProducts] = useState([]);
   const video = useRef();
 
@@ -34,6 +34,8 @@ export default function Home() {
       video.current.pause();
     }
   }
+
+  console.log(products);
 
   return (
     <main>
@@ -161,11 +163,11 @@ export default function Home() {
           <div className={classes["section-tab-list"]}>
             <button
               className={
-                activeTab === "bright-colors"
+                activeTab === "bright-colours"
                   ? `${classes["tabList-item"]} ${classes["active"]}`
                   : classes["tabList-item"]
               }
-              onClick={() => toggleActiveTab("bright-colors")}
+              onClick={() => toggleActiveTab("bright-colours")}
             >
               Colorful
             </button>
@@ -185,7 +187,7 @@ export default function Home() {
         <AnimatePresence mode="wait">
           <motion.div layout>
             <AnimatePresence mode="wait">
-              {activeTab === "bright-colors" && (
+              {activeTab === "bright-colours" && (
                 <ProductSlider
                   products={products.slice(0, 15)}
                   key="colorful"

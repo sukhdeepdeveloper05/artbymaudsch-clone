@@ -60,7 +60,7 @@ export default function CartItem({ classes, item }) {
               onClick={() => {
                 setQuantity((prevQuantity) => prevQuantity - 1);
                 dispatch(
-                  setItemQuantity({ ...item, quantity: +item.quantity - 1 })
+                  setItemQuantity({ ...item, quantity: +item.quantity - 1 }),
                 );
               }}
             >
@@ -79,12 +79,12 @@ export default function CartItem({ classes, item }) {
                 setQuantity(+e.target.value);
               }}
               onBlur={(e) => {
-                if (e.target.value <= 50 && e.target.value > 0) {
+                if (e.target.value <= 5 && e.target.value > 0) {
                   dispatch(
                     setItemQuantity({
                       ...item,
                       quantity: +e.target.value,
-                    })
+                    }),
                   );
                 } else {
                   setQuantity(+item.quantity);
@@ -93,12 +93,14 @@ export default function CartItem({ classes, item }) {
             />
             <button
               className={classes["increase-quantity-btn"]}
-              disabled={item.quantity >= 50}
+              disabled={item.quantity >= 5}
               onClick={() => {
-                setQuantity((prevQuantity) => prevQuantity + 1);
-                dispatch(
-                  setItemQuantity({ ...item, quantity: +item.quantity + 1 })
-                );
+                if (item.quantity < 5) {
+                  setQuantity((prevQuantity) => prevQuantity + 1);
+                  dispatch(
+                    setItemQuantity({ ...item, quantity: +item.quantity + 1 }),
+                  );
+                }
               }}
             >
               <PlusIcon />
